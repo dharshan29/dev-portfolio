@@ -1,103 +1,188 @@
+'use client';
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Briefcase, Github, Linkedin, Mail, MapPin, Moon, Sun } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isDark, setIsDark] = useState(false)
+  const [isRecruiter, setIsRecruiter] = useState(false)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+   const toggleTheme = () => {
+    setIsDark(!isDark)
+    document.documentElement.classList.toggle("dark")
+  }
+
+  const workExperience = [
+    {
+      company: "Next Ventures",
+      role: "Full Stack Developer",
+      period: "Jun 2025 - Present",
+      description:
+        "Developing a domain-specific platform for entrepreneurs using React, Next.js, and modern deployment techniques.",
+      achievements: [
+        "Built scalable web applications with clean, efficient code",
+        "Implemented seamless user experiences with modern tech stack",
+      ],
+    },
+    {
+      company: "Freelance Projects",
+      role: "Full Stack Developer",
+      period: "Jan 2024 - Present",
+      description: "Creating dynamic web experiences for various clients, specializing in React and Node.js solutions.",
+      achievements: [
+        "Delivered 15+ successful projects with 100% client satisfaction",
+        "Specialized in e-commerce and SaaS applications",
+      ],
+    },
+  ]
+
+  const education = [
+    {
+      institution: "Computer Science Degree",
+      degree: "Bachelor's in Computer Science",
+      period: "2020 - 2024",
+      description: "Focused on software engineering, algorithms, and web development technologies.",
+    },
+  ]
+
+  return (
+    <div className={`min-h-screen transition-all duration-500 ${
+      isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'
+    }`}>
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Clouds */}
+        <div
+          className={`absolute top-10 left-10 w-20 h-12 rounded-full transition-colors duration-500 ${
+            isDark ? "bg-gray-700/30" : "bg-white/70"
+          } animate-float`}
+        ></div>
+        <div
+          className={`absolute top-20 right-20 w-16 h-10 rounded-full transition-colors duration-500 ${
+            isDark ? "bg-gray-700/30" : "bg-white/70"
+          } animate-float-delayed`}
+        ></div>
+        <div
+          className={`absolute top-32 left-1/3 w-24 h-14 rounded-full transition-colors duration-500 ${
+            isDark ? "bg-gray-700/30" : "bg-white/70"
+          } animate-float-slow`}
+        ></div>
+
+        {/* Sun/Moon */}
+        <div
+          className={`absolute top-16 right-32 w-16 h-16 rounded-full transition-all duration-500 ${
+            isDark
+              ? "bg-gradient-to-br from-yellow-200 to-yellow-400 shadow-lg shadow-yellow-400/50"
+              : "bg-gradient-to-br from-yellow-300 to-yellow-500 shadow-lg shadow-yellow-500/30"
+          } animate-pulse-slow`}
+        ></div>
+
+        {/* Mountains */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1200 200" className="w-full h-32">
+            <path
+              d="M0,200 L0,100 L200,50 L400,80 L600,30 L800,70 L1000,40 L1200,60 L1200,200 Z"
+              className={`transition-colors duration-500 ${isDark ? "fill-green-800/50" : "fill-green-400/60"}`}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <path
+              d="M0,200 L0,120 L150,80 L350,100 L550,60 L750,90 L950,70 L1200,80 L1200,200 Z"
+              className={`transition-colors duration-500 ${isDark ? "fill-green-700/40" : "fill-green-500/50"}`}
+            />
+          </svg>
         </div>
+      </div>
+
+      {/* Header  */}
+      <header className="relative z-10 p-6">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
+          <nav className="flex space-x-8">
+            <a href="#home" className={`font-medium transition-colors hover:text-blue-600 ${isDark ? "text-white" : "text-gray-700"}`}>
+              Home
+            </a>
+            <a href="#home" className={`font-medium transition-colors hover:text-blue-600 ${isDark ? "text-white" : "text-gray-700"}`}>
+              Projects
+            </a>
+            <a href="#home" className={`font-medium transition-colors hover:text-blue-600 ${isDark ? "text-white" : "text-gray-700"}`}>
+              Resume
+            </a>
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            <Button variant="ghost" size="icon" onClick={toggleTheme}>
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="relative z-10 max-w-4xl mx-auto pb-20">
+        <Card className="mb-8 backdrop-blur-sm bg-white/90 dark:bg-gray-800 border-0 shadow-xl animate-slide-up transition-all duration-500">
+          <CardContent className="p-8">
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="flex-shrink-0">
+                <Image src="/placeholder.svg?height=80&width=80" alt="Profile" width={80} height={80} className="rounded-full border-4 border-white shadow-lg"/>
+              </div>
+
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-3">
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">Hey, I am Dharshan 👋</h1>
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                    <MapPin className="w-4 h-4" />
+                    <span>India</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">Available for work</span>
+                </div>
+
+                <p className="text-gray-700 dark:text-gray-300 mb-4 transition-colors leading-relaxed">
+                  {isRecruiter
+                    ? "Full Stack Developer with expertise in React, Next.js, and Node.js. I help founders turn ideas into seamless digital experiences, combining academic knowledge with industry experience in building scalable web applications."
+                    : "ML Engineer with expertise in LLM optimization, post-training, and deployment. Combining academic research at Georgia Tech with industry experience in building scalable ML systems."}
+                </p>
+
+                <div className="flex gap-4">
+                  <Button variant='outline' size='sm' className="transition-all duration-500">
+                    <Mail className="w-4 h-4 mr-2" />
+                    Email
+                  </Button>
+                  <Button variant='outline' size='sm' className="transition-all duration-500">
+                    <Linkedin className="w-4 h-4 mr-2" />
+                    LinkedIn
+                  </Button>
+                  <Button variant='outline' size='sm' className="transition-all duration-500">
+                    <Github className="w-4 h-4 mr-2" />
+                    GitHub
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Work & Education */}
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+          {/* Work Experience */}
+          <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800 border-0 shadow-xl animate-slide-up-delayed           transition-all duration-500">
+            <CardHeader className="pb-4">
+                <div className="flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 text-blue-600" />
+                  <CardTitle className="text-lg">Work</CardTitle>
+                </div>
+            </CardHeader>
+            <CardContent>
+                {}
+            </CardContent>
+          </Card>
+        </div>
+
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
