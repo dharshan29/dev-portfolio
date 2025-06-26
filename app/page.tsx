@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Github, Linkedin, Mail, MapPin, Moon, Sun } from "lucide-react";
+import { Briefcase, Github, GraduationCap, Linkedin, Mail, MapPin, Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -120,7 +120,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="relative z-10 max-w-4xl mx-auto pb-20">
-        <Card className="mb-8 backdrop-blur-sm bg-white/90 dark:bg-gray-800 border-0 shadow-xl animate-slide-up transition-all duration-500">
+        <Card className="mb-8 backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up transition-all duration-500">
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row gap-6 items-start">
               <div className="flex-shrink-0">
@@ -169,15 +169,58 @@ export default function Home() {
         {/* Work & Education */}
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           {/* Work Experience */}
-          <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800 border-0 shadow-xl animate-slide-up-delayed           transition-all duration-500">
-            <CardHeader className="pb-4">
+          <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed           transition-all duration-500">
+            <CardHeader>
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-5 h-5 text-blue-600" />
                   <CardTitle className="text-lg">Work</CardTitle>
                 </div>
             </CardHeader>
-            <CardContent>
-                {}
+            <CardContent className="space-y-6">
+                {workExperience.map((job, index) => (
+                  <div key={index} className="border-l-2 border-blue-200 dark:border-blue-800 pl-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">{job.company}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{job.role}</p>
+                      </div>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">{job.period}</span>
+                    </div>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{job.description}</p>
+                    <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                      {job.achievements.map((achievement, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-blue-500 mt-1">.</span>
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+            </CardContent>
+          </Card>
+
+            {/* Education */}
+          <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed-2">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <GraduationCap className="w-5 h-5 text-green-600" />
+                <CardTitle className="text-lg">Education</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {education.map((edu, index) => (
+                <div key={index} className="border-l-2 border-green-200 dark:border-green-800 pl-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{edu.institution}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{edu.degree}</p>
+                    </div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{edu.period}</span>
+                  </div>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">{edu.description}</p>
+                </div>
+              ))}
             </CardContent>
           </Card>
         </div>
