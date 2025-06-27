@@ -1,14 +1,18 @@
 'use client';
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Github, GraduationCap, Linkedin, Mail, MapPin, Moon, Sun } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Briefcase, Code, ExternalLink, Github, GraduationCap, Linkedin, Mail, MapPin, MessageCircle, Moon, Send, Sun } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
   const [isDark, setIsDark] = useState(false)
   const [isRecruiter, setIsRecruiter] = useState(false)
+  const [chatMessage, setChatMessage] = useState("")
+
 
    const toggleTheme = () => {
     setIsDark(!isDark)
@@ -48,9 +52,30 @@ export default function Home() {
     },
   ]
 
+  const featuredProjects = [
+    {
+      title: "Next Ventures",
+      description:
+        "A platform designed for early-stage entrepreneurs to pitch, browse, and engage with startup ideas. Built to impress both users and investors.",
+      image: "/placeholder.svg?height=200&width=300",
+      tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      link: "#",
+      github: "#",
+    },
+    {
+      title: "E-Commerce Platform",
+      description:
+        "Full-stack e-commerce solution with modern UI/UX, payment integration, and real-time inventory management.",
+      image: "/placeholder.svg?height=200&width=300",
+      tech: ["React", "Node.js", "MongoDB", "Stripe"],
+      link: "#",
+      github: "#",
+    },
+  ]
+
   return (
     <div className={`min-h-screen transition-all duration-500 ${
-      isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'
+      isDark ? 'bg-gray-900' : "bg-gradient-to-br from-blue-100 via-blue-50 to-green-50"
     }`}>
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -181,13 +206,13 @@ export default function Home() {
                   <div key={index} className="border-l-2 border-blue-200 dark:border-blue-800 pl-4">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">{job.company}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{job.role}</p>
+                        <h3 className="font-semibold transition-colors text-gray-900 dark:text-white">{job.company}</h3>
+                        <p className="text-sm transition-colors text-gray-600 dark:text-gray-400">{job.role}</p>
                       </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">{job.period}</span>
+                      <span className="text-xs transition-colors text-gray-500 dark:text-gray-400">{job.period}</span>
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{job.description}</p>
-                    <ul className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                    <p className="text-sm transition-colors text-gray-700 dark:text-gray-300 mb-2">{job.description}</p>
+                    <ul className="text-xs transition-colors text-gray-600 dark:text-gray-400 space-y-1">
                       {job.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <span className="text-blue-500 mt-1">.</span>
@@ -201,7 +226,7 @@ export default function Home() {
           </Card>
 
             {/* Education */}
-          <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed-2">
+          <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed-2 transition-all duration-500">
             <CardHeader>
               <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-green-600" />
@@ -210,21 +235,89 @@ export default function Home() {
             </CardHeader>
             <CardContent className="space-y-6">
               {education.map((edu, index) => (
-                <div key={index} className="border-l-2 border-green-200 dark:border-green-800 pl-4">
+                <div key={index} className="border-l-2 transition-colors border-green-200 dark:border-green-800 pl-4">
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{edu.institution}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{edu.degree}</p>
+                      <h3 className="font-semibold transition-colors text-gray-900 dark:text-white">{edu.institution}</h3>
+                      <p className="text-sm transition-colors text-gray-600 dark:text-gray-400">{edu.degree}</p>
                     </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{edu.period}</span>
+                    <span className="text-xs transition-colors text-gray-500 dark:text-gray-400">{edu.period}</span>
                   </div>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{edu.description}</p>
+                  <p className="text-sm transition-colors text-gray-700 dark:text-gray-300">{edu.description}</p>
                 </div>
               ))}
             </CardContent>
           </Card>
         </div>
 
+        {/* Featured Projects */}
+        <Card className="mb-8 backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed-3    transition-all duration-500">
+          <CardHeader>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <Code className="w-5 h-5 text-purple-600" />
+                  <CardTitle className="text-lg">Featured Projects</CardTitle>
+                </div>
+                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+                  View more →
+                </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+              <div className="grid md:grid-cols-2 gap-6">
+                {featuredProjects.map((project, index) => (
+                  <div key={index} className="group" >
+                    <div className="relative aspect-video overflow-hidden rounded-lg mb-3 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
+                      <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <h3 className="font-semibold transition-colors text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                    <p className="text-sm transition-colors text-gray-600 dark:text-gray-400 mb-3">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.tech.map((tech, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                     <div className="flex gap-2">
+                      <Button size="sm" variant="outline">
+                        <ExternalLink className="w-3 h-3 mr-1" />
+                        Demo
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Github className="w-3 h-3 mr-1" />
+                        Code
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+          </CardContent>
+        </Card>
+
+        {/* Chat Interface */}
+        <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed-4 transition-all duration-500">
+          <CardContent className="px-6">
+            <div className="flex items-center gap-3 mb-4">
+              <MessageCircle className="w-5 h-5 text-blue-600" />
+              <span className="font-medium transition-colors text-gray-900 dark:text-white">Ask me anything about Dharshan...</span>
+            </div>
+            <div className="flex gap-3">
+              <Input
+                placeholder="Suggested questions:"
+                value={chatMessage}
+                onChange={(e) => setChatMessage(e.target.value)}
+                className="flex-1"
+              />
+              <Button size="icon">
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+            <div className="mt-3 text-xs transition-colors text-gray-500 dark:text-gray-400">
+              Suggested questions: What technologies do you work with? Tell me about your recent projects?
+            </div>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
