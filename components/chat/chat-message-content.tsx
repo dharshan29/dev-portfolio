@@ -92,7 +92,7 @@ export default function ChatMessageContent({
                   remarkPlugins={[remarkGfm]}
                   components={{
                     p: ({ children }) => (
-                      <p className="break-words whitespace-pre-wrap">
+                      <p className="break-words text-gray-900 dark:text-white whitespace-pre-wrap">
                         {children}
                       </p>
                     ),

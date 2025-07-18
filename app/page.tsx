@@ -5,19 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Briefcase, Code, ExternalLink, Github, GraduationCap, Linkedin, Mail, MapPin, MessageCircle, Moon, Send, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(false)
+  const { theme, setTheme } = useTheme();
+
+  const isDark = theme === 'dark';
+
   const [isRecruiter, setIsRecruiter] = useState(false)
   const [chatMessage, setChatMessage] = useState("")
 
 
-   const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle("dark")
-  }
+  const toggleTheme = () => {
+    setTheme(isDark ? 'light' : 'dark');
+  };
+
 
   const workExperience = [
     {
@@ -319,6 +323,7 @@ export default function Home() {
           </CardContent>
         </Card>
       </main>
+      
     </div>
   );
 }

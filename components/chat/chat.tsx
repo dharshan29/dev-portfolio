@@ -9,6 +9,7 @@ import { ChatBubble, ChatBubbleMessage } from '../ui/chat/chat-bubble';
 import ChatMessageContent from './chat-message-content';
 import ChatLanding from './chat-landing';
 import { SimplifiedChatView } from './simple-chat-view';
+import { useTheme } from 'next-themes';
 
 // Component imports
 
@@ -40,12 +41,18 @@ const MOTION_CONFIG = {
 };
 
 const Chat = () => {
+  const { theme } = useTheme();
+
+  
+  const [isDark, setIsDark] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('query');
   const [autoSubmitted, setAutoSubmitted] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
+  
 
   const {
     messages,
@@ -150,6 +157,12 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    const isDark = theme === 'dark';
+    setIsDark(isDark)
+  },[theme])
+
+
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.loop = true;
       videoRef.current.muted = true;
@@ -201,7 +214,54 @@ const Chat = () => {
   const headerHeight = hasActiveTool ? 100 : 180;
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className={`relative h-screen overflow-hidden transition-all duration-500 ${
+      isDark ? 'bg-gray-900' : "bg-gradient-to-br from-blue-100 via-blue-50 to-green-50"
+    }`}>
+
+       {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Clouds */}
+        <div
+          className={`absolute top-10 left-10 w-20 h-12 rounded-full transition-colors duration-500 ${
+            isDark ? "bg-gray-700/30" : "bg-white/70"
+          } animate-float`}
+        ></div>
+        <div
+          className={`absolute top-20 right-20 w-16 h-10 rounded-full transition-colors duration-500 ${
+            isDark ? "bg-gray-700/30" : "bg-white/70"
+          } animate-float-delayed`}
+        ></div>
+        <div
+          className={`absolute top-32 left-1/3 w-24 h-14 rounded-full transition-colors duration-500 ${
+            isDark ? "bg-gray-700/30" : "bg-white/70"
+          } animate-float-slow`}
+        ></div>
+
+        {/* Sun/Moon */}
+        <div
+          className={`absolute top-16 right-32 w-16 h-16 rounded-full transition-all duration-500 ${
+            isDark
+              ? "bg-gradient-to-br from-yellow-200 to-yellow-400 shadow-lg shadow-yellow-400/50"
+              : "bg-gradient-to-br from-yellow-300 to-yellow-500 shadow-lg shadow-yellow-500/30"
+          } animate-pulse-slow`}
+        ></div>
+
+        {/* Mountains */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1200 200" className="w-full h-32">
+            <path
+              d="M0,200 L0,100 L200,50 L400,80 L600,30 L800,70 L1000,40 L1200,60 L1200,200 Z"
+              className={`transition-colors duration-500 ${isDark ? "fill-green-800/50" : "fill-green-400/60"}`}
+            />
+            <path
+              d="M0,200 L0,120 L150,80 L350,100 L550,60 L750,90 L950,70 L1200,80 L1200,200 Z"
+              className={`transition-colors duration-500 ${isDark ? "fill-green-700/40" : "fill-green-500/50"}`}
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* {isDark? "hi":"hellolight"} */}
 
       {/* Fixed Avatar Header with Gradient */}
       <div
