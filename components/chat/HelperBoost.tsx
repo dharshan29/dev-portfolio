@@ -37,18 +37,47 @@ const questions = {
   Me: 'Who are you? I want to know more about you.',
   Projects: 'What are your projects? What are you working on right now?',
   Skills: 'What are your skills? Give me a list of your soft and hard skills.',
-  Fun: "What the craziest thing you've ever done? (mb?) What are your hobbies? ",
+  // Fun: "What the craziest thing you've ever done? (mb?) What are your hobbies? ",
   Contact:
     'How can I reach you? What kind of project would make you say "yes" immediately?',
 };
 
+// const questionConfig = [
+//   { key: 'Me', color: '#329696', icon: Laugh },
+//   { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
+//   { key: 'Skills', color: '#856ED9', icon: Layers },
+//   { key: 'Fun', color: '#B95F9D', icon: PartyPopper },
+//   { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
+// ];
+
+
 const questionConfig = [
-  { key: 'Me', color: '#329696', icon: Laugh },
-  { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
-  { key: 'Skills', color: '#856ED9', icon: Layers },
-  { key: 'Fun', color: '#B95F9D', icon: PartyPopper },
-  { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
-];
+  { 
+    key: 'Me',
+    className: 'bg-blue-500/20 dark:bg-blue-500/30 border-blue-400/50 dark:border-blue-400/70 text-blue-400 dark:text-blue-200 hover:bg-blue-500/30 dark:hover:bg-blue-500/40 hover:shadow-blue-500/30 dark:hover:shadow-blue-400/40',
+    icon: '👨‍💻'
+  },
+  { 
+    key: 'Projects',
+    className: 'bg-purple-500/20 dark:bg-purple-500/30 border-purple-400/50 dark:border-purple-400/70 text-purple-400 dark:text-purple-200 hover:bg-purple-500/30 dark:hover:bg-purple-500/40 hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40',
+    icon: '📁'
+  },
+  { 
+    key: 'Skills',
+    className: 'bg-green-500/20 dark:bg-green-500/30 border-green-400/50 dark:border-green-400/70 text-green-400 dark:text-green-200 hover:bg-green-500/30 dark:hover:bg-green-500/40 hover:shadow-green-500/30 dark:hover:shadow-green-400/40',
+    icon: '📊'
+  },
+  // { 
+  //   key: 'Fun',
+  //   className: 'bg-pink-500/20 dark:bg-pink-500/30 border-pink-400/50 dark:border-pink-400/70 text-pink-400 dark:text-pink-200 hover:bg-pink-500/30 dark:hover:bg-pink-500/40 hover:shadow-pink-500/30 dark:hover:shadow-pink-400/40',
+  //   icon: '🎉'
+  // },
+  { 
+    key: 'Contact',
+    className: 'bg-orange-500/20 dark:bg-orange-500/30 border-orange-400/50 dark:border-orange-400/70 text-orange-400 dark:text-orange-200 hover:bg-orange-500/30 dark:hover:bg-orange-500/40 hover:shadow-orange-500/30 dark:hover:shadow-orange-400/40',
+    icon: '📧'
+  }
+] as const;
 
 // Helper drawer data
 const specialQuestions = [
@@ -181,7 +210,7 @@ export default function HelperBoost({
           >
             <button
               onClick={toggleVisibility}
-              className="flex items-center gap-1 px-3 py-1 text-xs text-gray-500 transition-colors hover:text-gray-700"
+              className="flex items-center gap-1 px-3 py-1 text-xs text-gray-800 dark:text-gray-100 transition-colors hover:text-gray-700"
             >
               {isVisible ? (
                 <>
@@ -204,7 +233,7 @@ export default function HelperBoost({
                 className="flex w-full flex-wrap gap-1 md:gap-3"
                 style={{ justifyContent: 'safe center' }}
               >
-                {questionConfig.map(({ key, color, icon: Icon }) => (
+                {/* {questionConfig.map(({ key, color, icon: Icon }) => (
                   <Button
                     key={key}
                     onClick={() => handleQuestionClick(key)}
@@ -216,6 +245,16 @@ export default function HelperBoost({
                       <span className="text-sm font-medium">{key}</span>
                     </div>
                   </Button>
+                ))} */}
+                {questionConfig.map(({ key, className, icon }) => (
+                  <button 
+                  key={key}
+                  onClick={() => handleQuestionClick(key)}
+                  className={`backdrop-blur-md border hover:shadow-lg px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer ${className}`}
+                  >
+                  <span className="mr-2 text-lg">{icon}</span>
+                  {key}
+                  </button>
                 ))}
 
                 {/* Need Inspiration Button */}

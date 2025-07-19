@@ -55,7 +55,7 @@ export function Presentation() {
               className="h-full w-full"
             >
               <Image
-                src={profile.fallbackSrc}
+                src={profile.src}
                 alt={profile.name}
                 width={500}
                 height={500}
