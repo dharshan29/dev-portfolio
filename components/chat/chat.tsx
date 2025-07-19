@@ -10,6 +10,11 @@ import ChatMessageContent from './chat-message-content';
 import ChatLanding from './chat-landing';
 import { SimplifiedChatView } from './simple-chat-view';
 import { useTheme } from 'next-themes';
+import BackgroundTheme from "@/components/background-theme";
+import { Button } from '../ui/button';
+import { Moon, Sun } from 'lucide-react';
+import ChatBottombar from './chat-bottombar';
+import HelperBoost from './HelperBoost';
 
 // Component imports
 
@@ -41,7 +46,7 @@ const MOTION_CONFIG = {
 };
 
 const Chat = () => {
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   
   const [isDark, setIsDark] = useState(false);
@@ -156,6 +161,10 @@ const Chat = () => {
     });
   };
 
+  const toggleTheme = () => {
+    setTheme(isDark ? 'light' : 'dark');
+  };
+
   useEffect(() => {
     const isDark = theme === 'dark';
     setIsDark(isDark)
@@ -197,14 +206,14 @@ const Chat = () => {
     setInput('');
   };
 
-  // const handleStop = () => {
-  //   stop();
-  //   setLoadingSubmit(false);
-  //   setIsTalking(false);
-  //   if (videoRef.current) {
-  //     videoRef.current.pause();
-  //   }
-  // };
+  const handleStop = () => {
+    stop();
+    setLoadingSubmit(false);
+    setIsTalking(false);
+    // if (videoRef.current) {
+    //   videoRef.current.pause();
+    // }
+  };
 
   // Check if this is the initial empty state (no messages)
   const isEmptyState =
@@ -214,57 +223,15 @@ const Chat = () => {
   const headerHeight = hasActiveTool ? 100 : 180;
 
   return (
-    <div className={`relative h-screen overflow-hidden transition-all duration-500 ${
-      isDark ? 'bg-gray-900' : "bg-gradient-to-br from-blue-100 via-blue-50 to-green-50"
-    }`}>
+    <div className={`relative h-screen overflow-hidden transition-all duration-500 `}>
 
        {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {/* Clouds */}
-        <div
-          className={`absolute top-10 left-10 w-20 h-12 rounded-full transition-colors duration-500 ${
-            isDark ? "bg-gray-700/30" : "bg-white/70"
-          } animate-float`}
-        ></div>
-        <div
-          className={`absolute top-20 right-20 w-16 h-10 rounded-full transition-colors duration-500 ${
-            isDark ? "bg-gray-700/30" : "bg-white/70"
-          } animate-float-delayed`}
-        ></div>
-        <div
-          className={`absolute top-32 left-1/3 w-24 h-14 rounded-full transition-colors duration-500 ${
-            isDark ? "bg-gray-700/30" : "bg-white/70"
-          } animate-float-slow`}
-        ></div>
-
-        {/* Sun/Moon */}
-        <div
-          className={`absolute top-16 right-32 w-16 h-16 rounded-full transition-all duration-500 ${
-            isDark
-              ? "bg-gradient-to-br from-yellow-200 to-yellow-400 shadow-lg shadow-yellow-400/50"
-              : "bg-gradient-to-br from-yellow-300 to-yellow-500 shadow-lg shadow-yellow-500/30"
-          } animate-pulse-slow`}
-        ></div>
-
-        {/* Mountains */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 200" className="w-full h-32">
-            <path
-              d="M0,200 L0,100 L200,50 L400,80 L600,30 L800,70 L1000,40 L1200,60 L1200,200 Z"
-              className={`transition-colors duration-500 ${isDark ? "fill-green-800/50" : "fill-green-400/60"}`}
-            />
-            <path
-              d="M0,200 L0,120 L150,80 L350,100 L550,60 L750,90 L950,70 L1200,80 L1200,200 Z"
-              className={`transition-colors duration-500 ${isDark ? "fill-green-700/40" : "fill-green-500/50"}`}
-            />
-          </svg>
-        </div>
-      </div>
+      <BackgroundTheme />
 
       {/* {isDark? "hi":"hellolight"} */}
 
       {/* Fixed Avatar Header with Gradient */}
-      <div
+      {/* <div
         className="fixed top-0 right-0 left-0 z-50"
       >
         <div
@@ -290,14 +257,35 @@ const Chat = () => {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </div> */}
+      <header className="relative mx-auto z-10 max-w-3xl p-6">
+        <div className="max-w-4xl mx-auto flex justify-between items-center">
+          <nav className="flex space-x-8">
+            <a href="/" className={`font-medium transition-colors hover:text-blue-600 ${isDark ? "text-white" : "text-gray-700"}`}>
+              Home
+            </a>
+            <a href="/" className={`font-medium transition-colors hover:text-blue-600 ${isDark ? "text-white" : "text-gray-700"}`}>
+              Projects
+            </a>
+            <a href="/" className={`font-medium transition-colors hover:text-blue-600 ${isDark ? "text-white" : "text-gray-700"}`}>
+              Resume
+            </a>
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            <Button variant="ghost" size="icon" onClick={toggleTheme}>
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </Button>
+          </div>
+        </div>
+      </header>
 
       {/* Main Content Area */}
-      <div className="container mx-auto flex h-full max-w-3xl flex-col">
+      <div className="container mx-auto flex h-full max-w-3xl flex-col ">
         {/* Scrollable Chat Content */}
         <div
-          className="flex-1 overflow-y-auto px-2"
-          style={{ paddingTop: `${headerHeight}px` }}
+          className="flex-1 overflow-y-auto px-2 z-50"
+          // style={{ paddingTop: `${headerHeight}px` }}
         >
           <AnimatePresence mode="wait">
             {isEmptyState ? (
@@ -334,7 +322,7 @@ const Chat = () => {
         </div>
 
         {/* Fixed Bottom Bar */}
-        {/* <div className="sticky bottom-0 bg-white px-2 pt-3 md:px-0 md:pb-4">
+        <div className="sticky bottom-0 z-50 bg-white px-2 pt-3 md:px-0 md:pb-4">
           <div className="relative flex flex-col items-center gap-3">
             <HelperBoost submitQuery={submitQuery} setInput={setInput} />
             <ChatBottombar
@@ -346,7 +334,7 @@ const Chat = () => {
               isToolInProgress={isToolInProgress}
             />
           </div>
-        </div> */}
+        </div>
         <a
           href="https://x.com/toukoumcode"
           target="_blank"

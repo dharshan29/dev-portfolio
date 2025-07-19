@@ -1,5 +1,6 @@
 'use client';
 
+import BackgroundTheme from "@/components/background-theme";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,15 +8,60 @@ import { Input } from "@/components/ui/input";
 import { Briefcase, Code, ExternalLink, Github, GraduationCap, Linkedin, Mail, MapPin, MessageCircle, Moon, Send, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+/* ---------- quick-question data ---------- */
+const questions = {
+  Me: 'Who are you? I want to know more about you.',
+  Projects: 'What are your projects? What are you working on right now?',
+  Skills: 'What are your skills? Give me a list of your soft and hard skills.',
+  // Fun: 'What’s the craziest thing you’ve ever done? What are your hobbies?',
+  Contact:
+    'How can I contact you?',
+} as const;
+
+const buttonConfig = [
+  { 
+    key: 'Me',
+    className: 'bg-blue-500/20 dark:bg-blue-500/30 border-blue-400/50 dark:border-blue-400/70 text-blue-300 dark:text-blue-200 hover:bg-blue-500/30 dark:hover:bg-blue-500/40 hover:shadow-blue-500/30 dark:hover:shadow-blue-400/40',
+    icon: '👨‍💻'
+  },
+  { 
+    key: 'Projects',
+    className: 'bg-purple-500/20 dark:bg-purple-500/30 border-purple-400/50 dark:border-purple-400/70 text-purple-300 dark:text-purple-200 hover:bg-purple-500/30 dark:hover:bg-purple-500/40 hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40',
+    icon: '📁'
+  },
+  { 
+    key: 'Skills',
+    className: 'bg-green-500/20 dark:bg-green-500/30 border-green-400/50 dark:border-green-400/70 text-green-300 dark:text-green-200 hover:bg-green-500/30 dark:hover:bg-green-500/40 hover:shadow-green-500/30 dark:hover:shadow-green-400/40',
+    icon: '📊'
+  },
+  // { 
+  //   key: 'Fun',
+  //   className: 'bg-pink-500/20 dark:bg-pink-500/30 border-pink-400/50 dark:border-pink-400/70 text-pink-300 dark:text-pink-200 hover:bg-pink-500/30 dark:hover:bg-pink-500/40 hover:shadow-pink-500/30 dark:hover:shadow-pink-400/40',
+  //   icon: '🎉'
+  // },
+  { 
+    key: 'Contact',
+    className: 'bg-orange-500/20 dark:bg-orange-500/30 border-orange-400/50 dark:border-orange-400/70 text-orange-300 dark:text-orange-200 hover:bg-orange-500/30 dark:hover:bg-orange-500/40 hover:shadow-orange-500/30 dark:hover:shadow-orange-400/40',
+    icon: '📧'
+  }
+] as const;
+
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
   const isDark = theme === 'dark';
 
   const [isRecruiter, setIsRecruiter] = useState(false)
   const [chatMessage, setChatMessage] = useState("")
+
+  const goToChat = (query: string) =>
+    router.push(`/chat?query=${encodeURIComponent(query)}`);
+
 
 
   const toggleTheme = () => {
@@ -81,48 +127,7 @@ export default function Home() {
     <div className={`min-h-screen transition-all duration-500 ${
       isDark ? 'bg-gray-900' : "bg-gradient-to-br from-blue-100 via-blue-50 to-green-50"
     }`}>
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {/* Clouds */}
-        <div
-          className={`absolute top-10 left-10 w-20 h-12 rounded-full transition-colors duration-500 ${
-            isDark ? "bg-gray-700/30" : "bg-white/70"
-          } animate-float`}
-        ></div>
-        <div
-          className={`absolute top-20 right-20 w-16 h-10 rounded-full transition-colors duration-500 ${
-            isDark ? "bg-gray-700/30" : "bg-white/70"
-          } animate-float-delayed`}
-        ></div>
-        <div
-          className={`absolute top-32 left-1/3 w-24 h-14 rounded-full transition-colors duration-500 ${
-            isDark ? "bg-gray-700/30" : "bg-white/70"
-          } animate-float-slow`}
-        ></div>
-
-        {/* Sun/Moon */}
-        <div
-          className={`absolute top-16 right-32 w-16 h-16 rounded-full transition-all duration-500 ${
-            isDark
-              ? "bg-gradient-to-br from-yellow-200 to-yellow-400 shadow-lg shadow-yellow-400/50"
-              : "bg-gradient-to-br from-yellow-300 to-yellow-500 shadow-lg shadow-yellow-500/30"
-          } animate-pulse-slow`}
-        ></div>
-
-        {/* Mountains */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 200" className="w-full h-32">
-            <path
-              d="M0,200 L0,100 L200,50 L400,80 L600,30 L800,70 L1000,40 L1200,60 L1200,200 Z"
-              className={`transition-colors duration-500 ${isDark ? "fill-green-800/50" : "fill-green-400/60"}`}
-            />
-            <path
-              d="M0,200 L0,120 L150,80 L350,100 L550,60 L750,90 L950,70 L1200,80 L1200,200 Z"
-              className={`transition-colors duration-500 ${isDark ? "fill-green-700/40" : "fill-green-500/50"}`}
-            />
-          </svg>
-        </div>
-      </div>
+      <BackgroundTheme />
 
       {/* Header  */}
       <header className="relative z-10 p-6">
@@ -307,42 +312,36 @@ export default function Home() {
               <span className="font-medium transition-colors text-gray-900 dark:text-white">Ask me anything about Dharshan...</span>
             </div> */}
             <div className="flex flex-wrap justify-center gap-4 mb-4">
-            <button className="backdrop-blur-md bg-blue-500/20 dark:bg-blue-500/30 border border-blue-400/50 dark:border-blue-400/70 text-blue-300 dark:text-blue-200 hover:bg-blue-500/30 dark:hover:bg-blue-500/40 hover:shadow-lg hover:shadow-blue-500/30 dark:hover:shadow-blue-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
-              <span className="mr-2 text-lg">👨‍💻</span>
-              Me
-            </button>
-
-            <button className="backdrop-blur-md bg-purple-500/20 dark:bg-purple-500/30 border border-purple-400/50 dark:border-purple-400/70 text-purple-300 dark:text-purple-200 hover:bg-purple-500/30 dark:hover:bg-purple-500/40 hover:shadow-lg hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
-              <span className="mr-2 text-lg">📁</span>
-              Projects
-            </button>
-
-            <button className="backdrop-blur-md bg-green-500/20 dark:bg-green-500/30 border border-green-400/50 dark:border-green-400/70 text-green-300 dark:text-green-200 hover:bg-green-500/30 dark:hover:bg-green-500/40 hover:shadow-lg hover:shadow-green-500/30 dark:hover:shadow-green-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
-              <span className="mr-2 text-lg">📊</span>
-              Skills
-            </button>
-
-            <button className="backdrop-blur-md bg-pink-500/20 dark:bg-pink-500/30 border border-pink-400/50 dark:border-pink-400/70 text-pink-300 dark:text-pink-200 hover:bg-pink-500/30 dark:hover:bg-pink-500/40 hover:shadow-lg hover:shadow-pink-500/30 dark:hover:shadow-pink-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
-              <span className="mr-2 text-lg">🎉</span>
-              Fun
-            </button>
-
-            <button className="backdrop-blur-md bg-orange-500/20 dark:bg-orange-500/30 border border-orange-400/50 dark:border-orange-400/70 text-orange-300 dark:text-orange-200 hover:bg-orange-500/30 dark:hover:bg-orange-500/40 hover:shadow-lg hover:shadow-orange-500/30 dark:hover:shadow-orange-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
-              <span className="mr-2 text-lg">📧</span>
-              Contact
-            </button>
-          </div>
-            <div className="flex gap-3 relative">
-              <Input
-                placeholder="Ask me anything"
-                value={chatMessage}
-                onChange={(e) => setChatMessage(e.target.value)}
-                className="pr-14 h-12"
-              />
-              <Button size="icon" className="absolute right-2 top-2 h-8 w-8 hover:cursor-default" >
-                <Send className="w-4 h-4" />
-              </Button>
+              {buttonConfig.map(({ key, className, icon }) => (
+                <button 
+                  key={key}
+                  onClick={() => goToChat(questions[key])}
+                  className={`backdrop-blur-md border hover:shadow-lg px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer ${className}`}
+                >
+                  <span className="mr-2 text-lg">{icon}</span>
+                  {key}
+                </button>
+              ))}
             </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (chatMessage.trim()) goToChat(chatMessage.trim());
+              }}
+              className="relative w-full"
+            >
+              <div className="flex gap-3 relative">
+                <Input
+                  placeholder="Ask me anything"
+                  value={chatMessage}
+                  onChange={(e) => setChatMessage(e.target.value)}
+                  className="pr-14 h-12"
+                />
+                <Button disabled={!chatMessage.trim()} size="icon" className="absolute right-2 top-2 h-8 w-8 hover:cursor-default" >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            </form>
             {/* <div className="mt-3 text-xs transition-colors text-gray-500 dark:text-gray-400">
               Suggested questions: What technologies do you work with? Tell me about your recent projects?
             </div> */}
