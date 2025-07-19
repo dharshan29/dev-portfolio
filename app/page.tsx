@@ -302,24 +302,50 @@ export default function Home() {
         {/* Chat Interface */}
         <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90 border-0 shadow-xl animate-slide-up-delayed-4 transition-all duration-500">
           <CardContent className="px-6">
-            <div className="flex items-center gap-3 mb-4">
+            {/* <div className="flex items-center gap-3 mb-4">
               <MessageCircle className="w-5 h-5 text-blue-600" />
               <span className="font-medium transition-colors text-gray-900 dark:text-white">Ask me anything about Dharshan...</span>
-            </div>
-            <div className="flex gap-3">
+            </div> */}
+            <div className="flex flex-wrap justify-center gap-4 mb-4">
+            <button className="backdrop-blur-md bg-blue-500/20 dark:bg-blue-500/30 border border-blue-400/50 dark:border-blue-400/70 text-blue-300 dark:text-blue-200 hover:bg-blue-500/30 dark:hover:bg-blue-500/40 hover:shadow-lg hover:shadow-blue-500/30 dark:hover:shadow-blue-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
+              <span className="mr-2 text-lg">👨‍💻</span>
+              Me
+            </button>
+
+            <button className="backdrop-blur-md bg-purple-500/20 dark:bg-purple-500/30 border border-purple-400/50 dark:border-purple-400/70 text-purple-300 dark:text-purple-200 hover:bg-purple-500/30 dark:hover:bg-purple-500/40 hover:shadow-lg hover:shadow-purple-500/30 dark:hover:shadow-purple-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
+              <span className="mr-2 text-lg">📁</span>
+              Projects
+            </button>
+
+            <button className="backdrop-blur-md bg-green-500/20 dark:bg-green-500/30 border border-green-400/50 dark:border-green-400/70 text-green-300 dark:text-green-200 hover:bg-green-500/30 dark:hover:bg-green-500/40 hover:shadow-lg hover:shadow-green-500/30 dark:hover:shadow-green-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
+              <span className="mr-2 text-lg">📊</span>
+              Skills
+            </button>
+
+            <button className="backdrop-blur-md bg-pink-500/20 dark:bg-pink-500/30 border border-pink-400/50 dark:border-pink-400/70 text-pink-300 dark:text-pink-200 hover:bg-pink-500/30 dark:hover:bg-pink-500/40 hover:shadow-lg hover:shadow-pink-500/30 dark:hover:shadow-pink-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
+              <span className="mr-2 text-lg">🎉</span>
+              Fun
+            </button>
+
+            <button className="backdrop-blur-md bg-orange-500/20 dark:bg-orange-500/30 border border-orange-400/50 dark:border-orange-400/70 text-orange-300 dark:text-orange-200 hover:bg-orange-500/30 dark:hover:bg-orange-500/40 hover:shadow-lg hover:shadow-orange-500/30 dark:hover:shadow-orange-400/40 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer">
+              <span className="mr-2 text-lg">📧</span>
+              Contact
+            </button>
+          </div>
+            <div className="flex gap-3 relative">
               <Input
-                placeholder="Suggested questions:"
+                placeholder="Ask me anything"
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
-                className="flex-1"
+                className="pr-14 h-12"
               />
-              <Button size="icon">
+              <Button size="icon" className="absolute right-2 top-2 h-8 w-8 hover:cursor-default" >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            <div className="mt-3 text-xs transition-colors text-gray-500 dark:text-gray-400">
+            {/* <div className="mt-3 text-xs transition-colors text-gray-500 dark:text-gray-400">
               Suggested questions: What technologies do you work with? Tell me about your recent projects?
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </main>

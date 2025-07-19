@@ -2,6 +2,7 @@
 import Contact from '@/components/contact';
 import InternshipCard from '@/components/InternshipCard';
 import Presentation from '@/components/presentation';
+import AllProjects from '@/components/projects/AllProjects';
 import Resume from '@/components/resume';
 import Skills from '@/components/skills';
 import { Button } from '@/components/ui/button';
@@ -37,6 +38,7 @@ const Test = () => {
         <main className="relative z-10 max-w-4xl mx-auto flex flex-col justify-between items-center">
             {/* <InternshipCard /> */}
             {/* <Contact /> */}
+            <AllProjects />
             <Resume />
             <Presentation />
             <Skills />

@@ -1,4 +1,5 @@
 import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { SYSTEM_PROMPT } from './prompt';
 import { getContact } from './tools/getContact';
@@ -45,7 +46,8 @@ export async function POST(req: Request) {
     };
 
     const result = streamText({
-      model: openai('gpt-4o-mini'),
+      // model: openai('gpt-4o-mini'),
+      model: google('gemini-2.5-flash'),
       messages,
       toolCallStreaming: true,
       tools,

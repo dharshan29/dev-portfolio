@@ -8,6 +8,7 @@ import { ChatRequestOptions } from 'ai';
 import { Message } from 'ai/react';
 import { motion } from 'framer-motion';
 import ChatMessageContent from './chat-message-content';
+import ToolRenderer from './tool-renderer';
 // import ToolRenderer from './tool-renderer';
 
 interface SimplifiedChatViewProps {
@@ -66,10 +67,10 @@ export function SimplifiedChatView({
         {/* Tool invocation result - displayed at the top */}
         {hasTools && (
           <div className="mb-4 w-full">
-            {/* <ToolRenderer
+            <ToolRenderer
               toolInvocations={currentTool}
               messageId={message.id || 'current-msg'}
-            /> */}
+            />
           </div>
         )}
 
